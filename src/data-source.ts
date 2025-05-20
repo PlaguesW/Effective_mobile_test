@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE || 'issue_db',
   synchronize: true, 
   logging: true, 
-  entities: [Issue], 
+  entities: [Issue],
 });
 
 AppDataSource.initialize().then(() => {

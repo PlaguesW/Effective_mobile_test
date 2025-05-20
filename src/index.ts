@@ -1,7 +1,9 @@
+console.log(require.resolve('typeorm'));
+import 'reflect-metadata'; 
 import express from 'express';
 import { json } from 'body-parser';
-import { issueRoutes } from './routes/issue.routes';
-import { AppDataSource } from './data-source';
+import {AppDataSource} from './data-source';
+import issueRoutes from './routes/issue.routes';
 
 const app = express();
 app.use(json());

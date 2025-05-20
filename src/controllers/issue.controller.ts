@@ -1,14 +1,6 @@
+// src/controllers/issue.controller.ts
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
-import { Issue } from '../entities/Issue';
-
-export const createIssue = async (req: Request, res: Response) => {
-  const { topic, description } = req.body;
-  const repo = getRepository(Issue);
-  const issue = repo.create({ topic, description });
-  await repo.save(issue);
-  return res.status(201).json(issue);
-};
+import { issueService } from '../services/issue.service';
 
 export const create = async (req: Request, res: Response) => {
   const { topic, description } = req.body;
@@ -22,7 +14,7 @@ export const create = async (req: Request, res: Response) => {
 
 export const start = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  await issueService.startIssue(id);
+  await issueService.updateIssue(id, 'in_progress');
   res.sendStatus(200);
 };
 
@@ -33,7 +25,7 @@ export const complete = async (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Resolution text is required' });
   }
 
-  await issueService.completeIssue(id, resolutionText);
+  await issueService.updateIssue(id, 'done', resolutionText);
   res.sendStatus(200);
 };
 
@@ -44,7 +36,7 @@ export const cancel = async (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Cancellation reason is required' });
   }
 
-  await issueService.cancelIssue(id, reason);
+  await issueService.updateIssue(id, 'cancelled', reason);
   res.sendStatus(200);
 };
 
