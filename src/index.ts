@@ -1,5 +1,5 @@
+import 'reflect-metadata';
 console.log(require.resolve('typeorm'));
-import 'reflect-metadata'; 
 import express from 'express';
 import { json } from 'body-parser';
 import {AppDataSource} from './data-source';
